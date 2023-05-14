@@ -4,7 +4,7 @@ export interface User {
     roomName: string
 }
 
-const users: User[] = [];
+let users: User[] = [];
 
 
 export const addUser = (user: User): { error?: string, user?: User } => {
@@ -48,4 +48,8 @@ export const getUser = (id: string): User | undefined => {
 
 export const getAllUsersInRoom = (roomName: string): User[] => {
     return users.filter(user => user.roomName === roomName.trim().toLowerCase());
+}
+
+export const clearAllData = () => {
+    users = [];
 }

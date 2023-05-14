@@ -33,6 +33,15 @@ const io = new socketio.Server(server);
 // Setting the Public Directory to our custom path
 app.use(express.static(publicDirectoryPath));
 
+// Clearing all Users and rooms using Api Call
+app.post('/clear', (req: Request, res: Response) => {
+  fromUtils.clearAllData();
+
+  io.emit('redirectAllConnections')
+
+  return res.status(200).send('Data Cleared Successfully!')
+});
+
 // let count: number = 0;
 
 // Socket Events

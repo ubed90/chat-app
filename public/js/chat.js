@@ -114,6 +114,12 @@ socket.on('roomData', (roomData) => {
 })
 
 
+socket.on('redirectAllConnections', () => {
+    alert("Admin Cleared Database. Redirecting you to home..");
+    location.href = '/';
+})
+
+
 socket.emit('join', { userName, roomName }, (error) => {
     if(error) {
         alert(error);
