@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <title>Chat App</title>
+  </head>
+  <body>
+    <div class="app-container main-container">
+      <h1 class="main-heading">Join</h1>
+      <div class="form-container">
+        <form action="/chat.html" class="join-form">
+          <div class="form-control">
+            <label for="username" class="form-label">Username</label
+            ><input
+              type="text"
+              class="form-input"
+              name="userName"
+              id="userName"
+              placeholder="Enter Username"
+              minlength="3"
+              maxlength="12"
+              required
+            />
+            <span class="form-error">*Username should be minimum 3 characters.</span>
+          </div>
+          <div class="form-control">
+            <label for="roomname" class="form-label">Room Name</label
+            ><input
+              type="text"
+              class="form-input"
+              name="roomName"
+              id="roomName"
+              placeholder="Enter Roomname"
+              minlength="3"
+              maxlength="15"
+              required
+            />
+            <span class="form-error">*Room name should be minimum 3 characters.</span>
+          </div>
+          <button class="btn btn-join" type="submit">
+            <span class="material-symbols-outlined"> group_add </span>Join
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
