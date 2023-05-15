@@ -9,7 +9,8 @@ const sendLocation = document.getElementById('send-location');
 const messagesContainer = document.getElementById('messages');
 const userListContainer = document.querySelector('.chat-sidebar_userList');
 const userNameContainer = document.querySelector('.chat-sidebar__userName');
-const roomNameContainer = document.querySelector('.chat-sidebar_heading');
+const roomNameContainer = document.querySelector('.room-name');
+const usersOnlineContainer = document.querySelector('.users-online');
 
 
 // Temmplates
@@ -18,8 +19,38 @@ const locationTemplate = document.querySelector('#location-template').innerHTML;
 const userTemplate = document.querySelector('#user-template').innerHTML;
 
 
+
+// Mobile Menubar
+const hamburger = document.querySelector('.chat-sidebar_heading-icons');
+const sidebar = document.querySelector('.chat-sidebar');
+
+
 // Options
 const { userName, roomName } = Qs.parse(location.search, { ignoreQueryPrefix: true });
+
+
+// Helper Functions
+const toggleMobileMenu = () => {
+    hamburger.firstElementChild.classList.toggle('active');
+    hamburger.lastElementChild.classList.toggle('active');
+
+    sidebar.classList.toggle('open');
+}
+
+// Event Listeners
+// messagesContainer.addEventListener('scroll', (e) => {
+//     console.log(e.target.scrollTop, e.target.scrollHeight);
+// })
+hamburger.addEventListener('click', toggleMobileMenu);
+
+textInput.addEventListener('click', () => {
+    if(sidebar.classList.contains('open')) {
+       toggleMobileMenu(); 
+    }
+})
+
+
+// Main logic
 
 const autoScroll = () => {
     const newMessage = messagesContainer.firstElementChild;
@@ -35,15 +66,18 @@ const autoScroll = () => {
     const newMessageHeight = newMessage.offsetHeight + newMessageMargin + messagesGap;
 
 
-    const visibleHeight = messagesContainer.offsetHeight;
+    // const visibleHeight = messagesContainer.offsetHeight;
 
 
     const containerHeight = messagesContainer.scrollHeight;
 
-    const scrollOffset = messagesContainer.scrollTop + visibleHeight;
+    const scrollOffset = containerHeight + messagesContainer.scrollTop;
+
+    // console.log(containerHeight, newMessageHeight,containerHeight - newMessageHeight, scrollOffset, containerHeight - newMessageHeight <= scrollOffset);
 
     if(containerHeight - newMessageHeight <= scrollOffset) {
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        messagesContainer.scrollTop = 0;
     }
 }
 
@@ -109,6 +143,8 @@ socket.on('roomData', (roomData) => {
     const users = roomData.users.filter(user => user.userName !== userName);
 
     const markup = Mustache.render(userTemplate, { users });
+
+    usersOnlineContainer.innerText = `Users Online: ${users.length}`;
 
     userListContainer.innerHTML = markup;
 })

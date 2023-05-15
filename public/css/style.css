@@ -5,7 +5,6 @@ font-family: 'Source Sans Pro', sans-serif; */
 
 
 :root {
-    font-size: 62.5%;
     --color-primary: #ffffff;
     --color-accent: #20BF55;
     --color-accent-light: #4dcc77;
@@ -18,6 +17,11 @@ font-family: 'Source Sans Pro', sans-serif; */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+
+html {
+    font-size: 62.5%;
 }
 
 
@@ -71,6 +75,8 @@ body {
 
     /* border: 0.2rem solid var(--color-accent-dark); */
     box-shadow: 0 1rem 1.6rem rgb(0 0 0 / .15);
+
+    position: relative;
 }
 
 /* Sidebar */
@@ -78,7 +84,6 @@ body {
 
 .chat-sidebar {
     flex-basis: 25rem;
-    /* background-color: rgb(255 255 255 / 0.5); */
     background-color: var(--color-primary);
 
     display: grid;
@@ -94,7 +99,6 @@ body {
 }
 
 .chat-sidebar__user {
-    font-size: calc(1.6rem + 0.3vh + 0.3vw);
     padding: 1.6rem;
 
     display: flex;
@@ -102,6 +106,10 @@ body {
     align-items: center;
     background-color: var(--color-accent-light);
     color: var(--color-primary);
+}
+
+.chat-sidebar__userName {
+    font-size: calc(1.6rem + 0.2vh + 0.1vw);
 }
 
 .chat-sidebar__avatar {
@@ -167,14 +175,20 @@ body {
     padding: 1em;
 
     display: grid;
-    grid-template-rows: 1fr min-content;
+    grid-template-rows: min-content 1fr min-content;
+    gap: 1.6rem 0;
+}
+
+.room-name {
+    margin: -1.6rem -1.6rem 0;
+    background-color: var(--color-primary);
+    color: var(--color-accent-dark);
 }
 
 .message-container {
     height: 100%;
     overflow: hidden;
     overflow-y: auto;
-    padding-block-end: 1.6rem;
 
     display: flex;
     flex-direction: column-reverse;
@@ -276,6 +290,10 @@ body {
     font-family: 'Lato', sans-serif;
 } */
 
+.message.self, .message.else {
+    max-width: 60%;
+}
+
 .message.admin {
     grid: 1fr / 1fr max-content 1fr;
     font-size: 1.6rem;
@@ -375,6 +393,7 @@ body {
 
 .main-message {
     grid-column: 1 / -1;
+    word-break: break-all;
 }
 
 .location-message {
@@ -560,4 +579,136 @@ body {
 
 .btn-join:focus {
     transform: translateY(-1px);
+}
+
+/* Utility class */
+.desktop-none {
+    display: none !important;
+}
+
+
+/* Tab - land / Small desktop */
+@media only screen and (max-width: 75em) {
+    /* 1200px */
+    html {
+        font-size: 56.25%;
+    }
+} 
+
+/* Tab - Port */
+@media only screen and (max-width: 56.25em) {
+    /*  900px */
+    html {
+        font-size: 50%;
+    }
+}
+
+/* Big phones */
+@media only screen and (max-width: 37.5em) {
+    /* 600px */
+    .desktop-none {
+        display: unset !important;
+    }
+
+
+    .chat {
+
+    }
+
+    .chat-sidebar {
+        position: absolute;
+        width: 60%;
+        inset: 0 auto 0 -100%;
+        z-index: 1;
+
+        transition: 0.3s ease-in-out;
+    }
+
+    .chat-sidebar.open {
+        inset: 0 auto 0 0;
+    }
+
+    .chat-sidebar__header {
+        position: relative;
+    }
+
+    .chat-sidebar_heading-icons {
+        position: absolute;
+        top: 0;
+        /* transform: translateY(-50%); */
+        right: 0;
+
+        display: grid !important;
+        grid: 1fr / 1fr;
+    }
+
+    .chat-sidebar_heading-icons span {
+        color: var(--color-accent);
+        font-size: calc(3rem + 0.3vh + 0.3vw);;
+
+        grid-row: 1 / -1;
+        grid-column: 1 / -1;
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .chat-sidebar_heading-icons span.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+    }
+
+    .message.self, .message.else {
+        max-width: 70%;
+    }
+}
+
+/* Small phones */
+@media only screen and (max-width: 31.25em) {
+    /* 400px */
+    .message-form {
+        display: grid;
+        grid: repeat(2, min-content) / 1fr min-content;
+        gap: 1rem 1.6rem;
+    }
+
+    .btn-location {
+        grid-column: 1 / -1;
+        border-radius: 1.6rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .btn-location::before {
+        content: 'Send Location';
+        color: var(--color-primary);
+        font-family: inherit;
+        font-size: 2rem;
+        letter-spacing: 0.1rem;
+    }
+}
+
+/* Small phones */
+@media only screen and (max-width: 25em) {
+    /* 400px */
+}
+
+/* Smallest phones */
+@media only screen and (max-width: 20em) {
+    /* 400px */
+    .chat {
+        width: 100%;
+    }
+}
+
+
+/* Big Desktops */
+@media only screen and (min-width: 112.5em) {
+    /* 1800px+ */
+    html {
+        font-size: 75%;
+    }
 }

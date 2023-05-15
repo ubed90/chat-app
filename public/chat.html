@@ -17,7 +17,7 @@
         <h1 class="main-heading">Chat App</h1>
         <div class="chat">
           <div class="chat-sidebar">
-            <h2 class="chat-sidebar_heading"></h2>
+            <h2 class="chat-sidebar_heading users-online"></h2>
             <ul class="chat-sidebar_userList"></ul>
             <div class="chat-sidebar__user">
               <h4 class="chat-sidebar__userName"></h4>
@@ -25,6 +25,17 @@
             </div>
           </div>
           <div class="chat-container">
+            <div class="chat-sidebar__header">
+              <h2 class="chat-sidebar_heading room-name"></h2>
+              <div class="chat-sidebar_heading-icons desktop-none">
+                <span class="material-symbols-outlined active">
+                  menu
+                </span>
+                <span class="material-symbols-outlined">
+                  close
+                  </span>
+              </div>
+            </div>
             <div id="messages" class="message-container"></div>
             <form id="message-form" class="message-form">
               <input
