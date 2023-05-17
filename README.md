@@ -1,7 +1,7 @@
 # Chat App
 
 
-#### This is a online chatting application to ease communicate with your loved ones without hesitation regarding any history.
+#### This is a online chatting application to ease communicate with your family and friends without any hesitation regarding history.
 
 ## Getting Started
 To get started with this application, you need to clone this repository to your local machine.
