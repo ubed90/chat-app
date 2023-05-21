@@ -50,11 +50,19 @@ io.on('connection', (socket: socketio.Socket) => {
 
     // CHAT APP
 
+    socket.emit('newRoomCreated' ,fromUtils.getAllRoomNames());
+
     socket.on('join', ({ userName, roomName }: { [key: string]: string }, callBack) => {
       const { error, user } = fromUtils.addUser({ id: socket.id, userName, roomName: roomName.toLowerCase() });
 
       if(error) {
         return callBack(error);
+      }
+
+      const isANewRoom = fromUtils.isANewRoom(roomName);
+
+      if(isANewRoom) {
+        io.emit('newRoomCreated', fromUtils.getAllRoomNames());
       }
 
       socket.join(user?.roomName as string);
@@ -108,6 +116,8 @@ io.on('connection', (socket: socketio.Socket) => {
           room: user?.roomName,
           users: fromUtils.getAllUsersInRoom(user?.roomName as string)
         })
+
+        io.emit('newRoomCreated', fromUtils.getAllRoomNames());
       }
 
     })

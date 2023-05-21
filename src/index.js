@@ -58,10 +58,15 @@ app.post('/clear', (req, res) => {
 // Socket Events
 io.on('connection', (socket) => {
     // CHAT APP
+    socket.emit('newRoomCreated', fromUtils.getAllRoomNames());
     socket.on('join', ({ userName, roomName }, callBack) => {
         const { error, user } = fromUtils.addUser({ id: socket.id, userName, roomName: roomName.toLowerCase() });
         if (error) {
             return callBack(error);
+        }
+        const isANewRoom = fromUtils.isANewRoom(roomName);
+        if (isANewRoom) {
+            io.emit('newRoomCreated', fromUtils.getAllRoomNames());
         }
         socket.join(user === null || user === void 0 ? void 0 : user.roomName);
         socket.emit('message', fromUtils.generateMessage(`Welcome ${user === null || user === void 0 ? void 0 : user.userName}`, 'admin'));
@@ -94,6 +99,7 @@ io.on('connection', (socket) => {
                 room: user === null || user === void 0 ? void 0 : user.roomName,
                 users: fromUtils.getAllUsersInRoom(user === null || user === void 0 ? void 0 : user.roomName)
             });
+            io.emit('newRoomCreated', fromUtils.getAllRoomNames());
         }
     });
 });

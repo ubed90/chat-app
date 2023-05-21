@@ -50,6 +50,14 @@ export const getAllUsersInRoom = (roomName: string): User[] => {
     return users.filter(user => user.roomName === roomName.trim().toLowerCase());
 }
 
+export const isANewRoom = (roomName: string): boolean => {
+    return users.findIndex(user => user.roomName === roomName) === -1;
+}
+
+export const getAllRoomNames = (): string[] => {
+    return users.map(user => user.roomName);
+}
+
 export const clearAllData = () => {
     users = [];
 }
